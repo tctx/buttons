@@ -16,6 +16,11 @@ var averageLifeSpan = 82;
 var currentAge = 80;
 var vacation = data[0].timesPerYear;
 var numberOfCircles;
+var itemsPerRow = 15;
+var numberOfRows;
+var rowHeight = 50;
+var newSet = [];
+var timesLeft;
 
 function timesInLife(event, lifetime){
 
@@ -25,7 +30,8 @@ function timesInLife(event, lifetime){
 
 function timesLeftLife(lifespan,age,timesPerYear){
 
-    return (lifespan-age)*timesPerYear;
+    var timesLeft = (lifespan-age)*timesPerYear;
+    return;
 
 }
 
@@ -36,12 +42,32 @@ data.forEach(function(d){
 
 });
 
+var referenceData = data;
+
 console.log(data.length);
 
-// Once we have data, we now need to define variables used by D3
-// Examples include chart dimensions, scales, and anything else that can be defined now and accessed later
+data.forEach(function(d){
+  for (i=0;i<=d.timesInLife;i++){
+    newSet.push(1);
+  }
+});
 
-// We will start with chart dimensions
+function calcRowNumber(itemsPerRow,lifetimeNumber){
+  var rowNumber = lifetimeNumber/itemsPerRow;
+  if (rowNumber < 1){
+    numberOfRows = 1;
+  } else {
+    numberOfRows = rowNumber;
+  }
+  return;
+}
+
+function heightPerRow(svgHeight,rowCount){
+  rowHeight = svgHeight/rowCount;
+  return;
+}
+
+// Chart dimensions
 var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 100},
     width = 960 - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -56,13 +82,25 @@ var svg = d3.select("#chart").append("svg")
     .attr("fill", "lightGray");
 
     svg.selectAll("circle")
-    .data(data)
+    .data(newSet)
     .enter()
     .append("circle")
     .style("fill","red")
-    .attr("cy", 60)
-    .attr("cx", function(d,i){ return })
-    .attr("r", function(d,i){return width/(data.length);});
+    .attr("cy", function(d,i){ 
+      var currentRow = Math.floor(i/itemsPerRow);
+      return (currentRow * rowHeight) + 50;
+    })
+    .attr("cx", function(d,i){ 
+      return ((i%itemsPerRow) * 70) + 50;
+    })
+    .attr("r", function(d,i){return (width/itemsPerRow)/4;})
+    .style("fill", function(d,i){
+      if (i < newSet.length - 2){
+        return "orange";
+      } else {
+        return "white";
+      }
+    });
 
 
 
