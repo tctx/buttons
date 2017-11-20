@@ -13,14 +13,26 @@ var averageLifeSpan = 82;
 var currentAge = prompt("What's your age?");
 var vacation = data[0].timesPerYear;
 var numberOfCircles;
-var itemsPerRow = 33;
+var itemsPerRow = 12;
 var numberOfRows;
 var rowHeight;
 var newSet = [];
 var timesLeft;
+var timesLife;
+var circleMargin;
+var radius;
+var circleMargin;
+
+// Chart dimensions
+var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 100},
+    width = 960 - margin.right,
+    height = 500 - margin.top - margin.bottom;
+    totalWidth = width + margin.left + margin.right;
+    totalHeight = height + margin.top + margin.bottom;
 
 function timesInLife(event, lifetime){
-    return lifetime*event;
+    var timesLife = lifetime*event;
+    return timesLife;
 }
 
 function timesLeftLife(lifespan,age,timesPerYear){
@@ -62,12 +74,28 @@ function heightPerRow(svgHeight,rowCount){
 }
 
 calcRowNumber(itemsPerRow,data[0].timesInLife);
-heightPerRow(300,numberOfRows);
+heightPerRow(height,numberOfRows);
 
-// Chart dimensions
-var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 100},
-    width = 960 - margin.right,
-    height = 500 - margin.top - margin.bottom;
+function xProduct(){
+  radius = ((width/itemsPerRow)/2.25);
+  console.log("radius is "+radius);
+  diameter = radius*2;
+  console.log("diameter is "+diameter);
+  totalDiameter = diameter*itemsPerRow;
+  console.log("totalD is "+totalDiameter);
+  leftoverWidth = totalWidth-totalDiameter;
+  console.log("width is "+width);
+  circleMargin = (leftoverWidth/itemsPerRow)+diameter;
+  console.log(circleMargin);
+  return;
+}
+
+xProduct();
+
+function calcRowItems(){
+  
+}
+
 
 var svg = d3.select("#chart").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -90,9 +118,11 @@ var svg = d3.select("#chart").append("svg")
       return (currentRow * rowHeight) + 50;
     })
     .attr("cx", function(d,i){ 
-      return ((i%itemsPerRow) * 25) + 50;
+      return ((i%itemsPerRow) * circleMargin);
     })
-    .attr("r", function(d,i){return (width/itemsPerRow)/4;})
+    .attr("r", function(d,i){
+      console.log((totalWidth/itemsPerRow)/2);
+      return radius;})
     .style("fill", function(d,i){
       if (i < newDataArray.length - data[0].timesLeft){
         return "orange";
