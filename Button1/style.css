@@ -1,0 +1,52 @@
+.button.reverse.red {
+  background-color: #ff4742;
+  border-color: #ff4742;
+  background: linear-gradient(to left, #f85032, #ff4742);
+  color: #fff;
+}
+
+.button.reverse.red:hover {
+    background: none;
+    border-color: #ff4742;
+    color: #ff4742;
+}
+
+.button.red {
+    border-color: #ff4742;
+    color: #ff4742;
+}
+
+.button.red:hover {
+    background-color: #ff4742;
+    border-color: #ff4742;
+    color: #fff;
+}
+
+.button {
+    vertical-align: middle;
+    display: table;
+}
+
+.button {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    padding: 0.5em;
+    color: #fff;
+    font-weight: 800 !important;
+    border-radius: 5px;
+    border: 1px solid #c6c2be;
+    text-align: center;
+    user-select: none;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 0.8em;
+    font-size: 0.8em;
+}
+
+.button:hover {
+    background-color: #fff;
+    color: #fff;
+    background-color: #c6c2be;
+    border: 1px solid #c6c2be;
+}
